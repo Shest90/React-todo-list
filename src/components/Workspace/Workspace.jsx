@@ -18,6 +18,7 @@ function Workspace() {
           text={item.text}
           date={item.date}
           isDone={item.isDone}
+          color={item.color}
         />
       ))}
     </div>

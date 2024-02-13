@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
 
 import { createTask } from "../../store/tasksSlice";
 
@@ -8,28 +7,24 @@ import s from "./TaskCreator.module.scss";
 
 function TaskCreator() {
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const [header, setHeader] = useState("");
   const [note, setNote] = useState("");
+  const [selectedColor, setSelectedColor] = useState("#00c41e");
+
+  const handleColorChange = (e) => {
+    const newColor = e.target.value;
+    setSelectedColor(newColor);
+    console.log("Selected color:", newColor);
+  };
 
   const submit = (e) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
-      // throw new Error("Coudn't create new task!");
-
-      dispatch(createTask({ title: header, text: note }));
-      enqueueSnackbar({
-        message: "Task has been created!",
-        variant: "success",
-      });
-    } catch (error) {
-      enqueueSnackbar({
-        message: error.message,
-        variant: "error",
-      });
-    }
+    dispatch(createTask({ title: header, text: note, color: selectedColor }));
+    setHeader("");
+    setNote("");
+    setSelectedColor("#00c41e");
   };
 
   return (
@@ -52,6 +47,15 @@ function TaskCreator() {
         type="text"
         placeholder="Ваша заметка"
       />
+      <select
+        className={s.colorSelect}
+        value={selectedColor}
+        onChange={handleColorChange}
+      >
+        <option value="#00c41e">Зеленый</option>
+        <option value="#c40000">Красный</option>
+        <option value="#0074e4">Синий</option>
+      </select>
       <button onClick={submit} type="submit" className={s.button}>
         СОХРАНИТЬ
       </button>

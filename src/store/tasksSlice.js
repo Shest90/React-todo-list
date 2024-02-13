@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -15,7 +15,10 @@ const tasksSlice = createSlice({
         text: action.payload.text,
         isDone: false,
         date: new Date().toLocaleDateString(),
+        color: action.payload.color,
       };
+
+      console.log("createTask - newTask.color:", newTask.color);
 
       state.processedTasksCount += 1;
       state.tasks.push(newTask);
@@ -39,9 +42,27 @@ const tasksSlice = createSlice({
         return elem;
       });
     },
+    updateTask(state, action) {
+      const { id, title, text, color } = action.payload;
+      const taskToUpdate = state.tasks.find((task) => task.id === id);
+
+      if (taskToUpdate) {
+        taskToUpdate.title = title;
+        taskToUpdate.text = text;
+        taskToUpdate.color = color;
+      }
+    },
   },
 });
+export const selectCompletedTasksCount = createSelector(
+  (state) => state.tasks.tasks,
+  (tasks) => tasks.filter((task) => task.isDone).length
+);
 
-export const { createTask, completeTask } = tasksSlice.actions;
+export const selectProcessedTasksCount = createSelector(
+  (state) => state.tasks.tasks,
+  (tasks) => tasks.length
+);
+export const { createTask, completeTask, updateTask } = tasksSlice.actions;
 
 export const tasksReducer = tasksSlice.reducer;

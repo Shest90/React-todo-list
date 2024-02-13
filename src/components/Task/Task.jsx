@@ -1,53 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
 
-import { completeTask } from "../../store/tasksSlice";
-
+import { completeTask, updateTask } from "../../store/tasksSlice";
+// import { startEditing } from "../../store/taskEditorSlice";
+import TaskEditor from "../../components/TaskEditor";
 import s from "./Task.module.scss";
 
-function Task({ id, title, text, date, isDone }) {
+function Task({ id, title, text, date, isDone, color }) {
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(color);
 
-  const checkIsDone = (e) => {
-    e.preventDefault();
+  console.log("selectedColor:", selectedColor);
+
+  const checkIsDone = () => {
     dispatch(completeTask(id));
-    if (isDone) {
-      enqueueSnackbar({
-        message: "Task is now not completed",
-        variant: "default",
-      });
-    } else {
-      enqueueSnackbar({
-        message: "Task is now completed",
-        variant: "success",
-      });
-    }
+  };
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+  const handleUpdateTask = (updatedTask) => {
+    dispatch(updateTask(updatedTask));
+    setIsEditing(false);
+  };
+  const handleColorChange = (newColor) => {
+    setSelectedColor(newColor);
+    dispatch(updateTask({ id, title, text, color: newColor }));
   };
 
   return (
-    <>
-      {!isDone ? (
-        <div id={id} className={s.task}>
-          <h3 className={s.title}>{title}</h3>
-          <p className={s.text}>{text}</p>
-          <h5 className={s.date}>{date}</h5>
-          <button onClick={checkIsDone} className={s.button}>
-            ВЫПОЛНИТЬ
-          </button>
-        </div>
+    <div
+      id={id}
+      className={isDone ? s.taskIsDone : s.task}
+      style={{ backgroundColor: selectedColor }}
+    >
+      {isEditing ? (
+        <TaskEditor
+          id={id}
+          title={title}
+          text={text}
+          color={color}
+          onCancel={handleCancelEdit}
+          onUpdate={handleUpdateTask}
+        />
       ) : (
-        <div id={id} className={s.taskIsDone}>
-          <h3 className={s.titleIsDone}>{title}</h3>
-          <p className={s.textIsDone}>{text}</p>
-          <h5 className={s.dateIsDone}>{date}</h5>
-          <button onClick={checkIsDone} className={s.buttonIsDone}>
-            ВЫПОЛНЕНО
+        <>
+          <h3 className={isDone ? s.titleIsDone : s.title}>{title}</h3>
+          <p className={isDone ? s.textIsDone : s.text}>{text}</p>
+          <h5 className={isDone ? s.dateIsDone : s.date}>{date}</h5>
+          <button
+            onClick={checkIsDone}
+            className={isDone ? s.buttonIsDone : s.button}
+          >
+            {isDone ? "ВЫПОЛНЕНО" : "ВЫПОЛНИТЬ"}
           </button>
-        </div>
+          <button onClick={handleEditClick} className={s.buttonEdit}>
+            Редактировать
+          </button>
+          <select
+            className={s.colorSelect}
+            value={selectedColor}
+            onChange={(e) => handleColorChange(e.target.value)}
+          >
+            <option value="#00c41e" style={{ backgroundColor: "#00c41e" }}>
+              Зеленый
+            </option>
+            <option value="#c40000" style={{ backgroundColor: "#c40000" }}>
+              Красный
+            </option>
+            <option value="#0074e4" style={{ backgroundColor: "#0074e4" }}>
+              Синий
+            </option>
+          </select>
+        </>
       )}
-    </>
+    </div>
   );
 }
 

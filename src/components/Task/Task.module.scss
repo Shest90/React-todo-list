@@ -1,4 +1,15 @@
 .task {
+  position: relative;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: white;
+  box-shadow: 0px 5px 5px 0.4px #bababa;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.title {
+  .task {
     position: relative;
     width: 100%;
     padding: 1.5rem;
@@ -6,35 +17,35 @@
     box-shadow: 0px 5px 5px 0.4px #bababa;
     border-radius: 5px;
     transition: 0.3s;
-}
 
-.title {
-    font-weight: 600;
-    margin: 1.005rem 0rem;
-}
+    .title {
+      font-weight: 600;
+      margin: 1.005rem 0rem;
+    }
 
-.text {
-    opacity: 0.6;
-}
+    .text {
+      opacity: 0.6;
+    }
 
-.date {
-    text-align: right;
-    margin-left: auto;
-    justify-content: end;
-}
+    .date {
+      text-align: right;
+      margin-left: auto;
+      justify-content: end;
+    }
 
-.button {
-    background-color: #00c41e;
-    color: white;
-    padding: 0.8rem 1.4rem;
-    font-weight: 600;
-    border-radius: 4px;
-    text-align: right;  
-    margin-left: auto;
-    justify-content: end;
-}
+    .button {
+      background-color: #00c41e;
+      color: white;
+      padding: 0.8rem 1.4rem;
+      font-weight: 600;
+      border-radius: 4px;
+      text-align: right;
+      margin-left: auto;
+      justify-content: end;
+    }
+  }
 
-.taskIsDone {
+  .taskIsDone {
     position: relative;
     width: 100%;
     padding: 1.5rem;
@@ -42,30 +53,124 @@
     box-shadow: 0px 5px 5px 0.4px #bababa;
     border-radius: 5px;
     transition: 0.3s;
+
+    .titleIsDone {
+      font-weight: 600;
+      margin: 1.005rem 0rem;
+    }
+
+    .textIsDone {
+      opacity: 0.6;
+    }
+
+    .dateIsDone {
+      text-align: right;
+      margin-left: auto;
+      justify-content: end;
+    }
+
+    .buttonIsDone {
+      background-color: #d6d6d6;
+      color: black;
+      padding: 0.8rem 1.4rem;
+      font-weight: 600;
+      border-radius: 4px;
+      text-align: right;
+      margin-left: auto;
+      justify-content: end;
+    }
+  }
+  .buttonEdit {
+    background-color: #0074e4;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #005ab1;
+    }
+  }
+
+  .colorSelect {
+    padding: 0.3rem 0.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    option {
+      padding: 0.2rem;
+      border-radius: 4px;
+    }
+  }
+
+  font-weight: 600;
+  margin: 1.005rem 0rem;
+}
+
+.text {
+  opacity: 0.6;
+}
+
+.date {
+  text-align: right;
+  margin-left: auto;
+  justify-content: end;
+}
+
+.button {
+  background-color: #00c41e;
+  color: white;
+  padding: 0.8rem 1.4rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-align: right;
+  margin-left: auto;
+  justify-content: end;
+}
+
+.taskIsDone {
+  position: relative;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: #aeaeae;
+  box-shadow: 0px 5px 5px 0.4px #bababa;
+  border-radius: 5px;
+  transition: 0.3s;
 }
 
 .titleIsDone {
-    font-weight: 600;
-    margin: 1.005rem 0rem;
+  font-weight: 600;
+  margin: 1.005rem 0rem;
 }
 
 .textIsDone {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .dateIsDone {
-    text-align: right;
-    margin-left: auto;
-    justify-content: end;
+  text-align: right;
+  margin-left: auto;
+  justify-content: end;
 }
 
 .buttonIsDone {
-    background-color: #d6d6d6;
-    color: black;
-    padding: 0.8rem 1.4rem;
-    font-weight: 600;
-    border-radius: 4px;
-    text-align: right;  
-    margin-left: auto;
-    justify-content: end;
+  background-color: #d6d6d6;
+  color: black;
+  padding: 0.8rem 1.4rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-align: right;
+  margin-left: auto;
+  justify-content: end;
 }
